@@ -63,6 +63,18 @@ class BlogController extends AbstractController
         ]);
     }
 
+    #[Route('/generate/file', methods: ['GET'], name: 'generate_file')]
+    public function generateFile(): Response
+    {
+        dump('test');
+
+        return new Response('', 200, [
+            'Content-Type'   => 'application/pdf; charset=UTF-8',
+            'Accept-Ranges'  => 'byte',
+            'Content-disposition' => 'inline; filename=badges.pdf',
+        ]);
+    }
+
     /**
      * NOTE: The $post controller argument is automatically injected by Symfony
      * after performing a database query looking for a Post with the 'slug'
