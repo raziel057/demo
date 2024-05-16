@@ -58,6 +58,10 @@ class Post
     #[Assert\Length(min: 10, minMessage: 'post.too_short_content')]
     private ?string $content = null;
 
+    #[ORM\JoinColumn(name: 'LOGO_ID', referencedColumnName: 'ID')]
+    #[ORM\ManyToOne(targetEntity: ResourceFile::class, cascade: ['persist', 'remove'])]
+    private ?ResourceFile $logo = null;
+
     #[ORM\Column]
     private \DateTimeImmutable $publishedAt;
 
@@ -121,6 +125,18 @@ class Post
     public function setContent(?string $content): void
     {
         $this->content = $content;
+    }
+
+    public function setLogo(?ResourceFile $logo): static
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+    public function getLogo(): ?ResourceFile
+    {
+        return $this->logo;
     }
 
     public function getPublishedAt(): \DateTimeImmutable

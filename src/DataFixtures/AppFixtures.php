@@ -13,8 +13,10 @@ namespace App\DataFixtures;
 
 use App\Entity\Comment;
 use App\Entity\Post;
+use App\Entity\ResourceFile;
 use App\Entity\Tag;
 use App\Entity\User;
+use App\Types\FileType;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -76,6 +78,7 @@ final class AppFixtures extends Fixture
             $post->setContent($content);
             $post->setPublishedAt($publishedAt);
             $post->setAuthor($author);
+            $post->setLogo($this->getResourceFile());
             $post->addTag(...$tags);
 
             foreach (range(1, 5) as $i) {
@@ -266,5 +269,14 @@ final class AppFixtures extends Fixture
 
             return $tag;
         }, $selectedTags);
+    }
+
+    private function getResourceFile(): ResourceFile
+    {
+        $resourceFile = new ResourceFile();
+        $resourceFile->setName('img-test-integration');
+        $resourceFile->setContent('test');
+
+        return $resourceFile;
     }
 }

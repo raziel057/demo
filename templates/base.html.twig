@@ -10,7 +10,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta name="view-transition" content="same-origin" />
         <title>{% block title %}Symfony Demo application{% endblock %}</title>
-        <link rel="alternate" type="application/rss+xml" title="{{ 'rss.title'|trans }}" href="{{ path('blog_rss') }}">
 
         {#
             Those two blocks defines frontend entrypoint for CSS and JavaScript assets
@@ -78,8 +77,6 @@
                                 {% endif %}
 
                                 <li class="nav-item dropdown">
-                                    {% from 'default/_language_selector.html.twig' import render_language_selector %}
-                                    {{ render_language_selector() }}
                                 </li>
                             </ul>
                         </div>
@@ -98,13 +95,6 @@
                     </div>
 
                     <div id="sidebar" class="col-sm-3">
-                        {% block sidebar %}
-                            {{ render_esi(controller('Symfony\\Bundle\\FrameworkBundle\\Controller\\TemplateController::templateAction', {
-                                'template': 'blog/about.html.twig',
-                                'sharedAge': 600,
-                                '_locale': app.request.locale
-                            })) }}
-                        {% endblock %}
                     </div>
                 </div>
             {% endblock %}
